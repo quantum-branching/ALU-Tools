@@ -14,8 +14,8 @@ c = (a + b) & 0xFF
 carry = (a + b) >> 8
 print(f"a + b\t = {carry:01} {c:03}\t0b{c:08b}\t0x{c:02X}")
 
-c = (a + (0xFF ^ b)) & 0xFF
-carry = ((a + (0xFF ^ b)) & 0x100) >> 8
+c = (a + (0xFF ^ b) + 1) & 0xFF
+carry = ((a + (0xFF ^ b) + 1) & 0x100) >> 8
 print(f"a - b\t = {carry:01} {c:03}\t0b{c:08b}\t0x{c:02X}")
 
 c = a & b
