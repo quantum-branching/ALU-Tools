@@ -19,6 +19,10 @@ extern const char _binary_Assembler_lua_end[];
 extern const char _binary_Test_lua_start[];
 extern const char _binary_Test_lua_end[];
 
+
+extern const char _binary_ISA_lua_start[];
+extern const char _binary_ISA_lua_end[];
+
 void lua(const char *start, const char * end) {
 	lua_State *L = luaL_newstate();
 	luaL_openlibs(L);
@@ -42,6 +46,7 @@ void read_command(const char *buffer) {
 
 	if(streq(buffer, "help")) {
 		puts("assembler - Assembles files according to a given ISA");
+		puts("isa - Assists in the creation of an ISA");
 		puts("exit - Leaves ALU-Tools");
 		puts("help - Prints this very help screen");
 		puts("test - Generates test inputs and outputs");
@@ -53,6 +58,11 @@ void read_command(const char *buffer) {
 		return;
 	}
 
+	if(streq(buffer, "isa")) {
+		lua(_binary_ISA_lua_start, _binary_ISA_lua_end);
+		return;
+	}
+	
 	if(streq(buffer, "test")) {
 		lua(_binary_Test_lua_start, _binary_Test_lua_end);
 		return;
