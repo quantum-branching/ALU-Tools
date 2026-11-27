@@ -16,6 +16,9 @@ typedef size_t usize;
 extern const char _binary_Assembler_lua_start[];
 extern const char _binary_Assembler_lua_end[];
 
+extern const char _binary_Test_lua_start[];
+extern const char _binary_Test_lua_end[];
+
 void lua(const char *start, const char * end) {
 	lua_State *L = luaL_newstate();
 	luaL_openlibs(L);
@@ -41,6 +44,7 @@ void read_command(const char *buffer) {
 		puts("assembler - Assembles files according to a given ISA");
 		puts("exit - Leaves ALU-Tools");
 		puts("help - Prints this very help screen");
+		puts("test - Generates test inputs and outputs");
 		return;
 	}
 
@@ -48,12 +52,17 @@ void read_command(const char *buffer) {
 		_exit(0);
 		return;
 	}
+
+	if(streq(buffer, "test")) {
+		lua(_binary_Test_lua_start, _binary_Test_lua_end);
+		return;
+	}
 	
 	puts("Command unknown, try typing help to see available commands!");
 }
 
 int main() {
-	puts("----- Welcome to ALU-Tools! -----");
+	puts("---------- Welcome to ALU-Tools! ----------");
 	puts("What tools would you like to use?");
 	printf("> ");
 
